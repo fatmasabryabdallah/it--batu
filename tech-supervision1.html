@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإشراف الأكاديمي - الفرقة الأولى</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: 'Cairo', sans-serif;
+        text-align:center;
+        background-color: #ffffff;
+        color: #1e3a8a;
+        transition: background-color 0.6s ease;
+        overflow-x:hidden;
+    }
+
+    header {
+        position:relative;
+        background: #1e3a8a;
+        color:#fff;
+        padding:25px 10px 35px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:10px;
+        box-shadow:0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .back-btn {
+        position:absolute;
+        left:15px; top:15px;
+        background-color: rgba(255,255,255,0.15);
+        border:none; color:white;
+        font-size:20px; border-radius:50%;
+        width:42px; height:42px;
+        display:flex; align-items:center; justify-content:center;
+        cursor:pointer; transition:all 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    }
+    .back-btn:hover { background-color: rgba(255,255,255,0.3); transform: scale(1.1); }
+
+    .department-name { font-size:1.5rem; font-weight:bold; }
+    .year-label { font-size:1.1rem; color:#fff; opacity:0.9; }
+    .welcome { font-size:1.2rem; color:#fff; opacity:0.95; }
+
+    .container {
+        display:flex; flex-wrap:wrap; justify-content:center; gap:25px;
+        padding:30px 15px;
+    }
+
+    .card {
+        display:flex; flex-direction:column; align-items:center; gap:12px;
+        width:300px; padding:25px; border-radius:20px;
+        color: #1e3a8a; text-align:center;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transition: transform 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card img {
+        width:100px; height:100px; object-fit:cover;
+        border-radius:50%; border:3px solid #fff; box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .card h3 { font-size:18px; font-weight:bold; margin-bottom: 0; }
+    .card p { font-size:14px; color: #1e3a8a; margin: 0; }
+    .card .office-info {
+        margin-top: 8px;
+        font-weight: bold;
+        font-size: 15px;
+        color: #1e3a8a;
+    }
+
+    /* Card Colors */
+    .prof { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+    .assistant { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+
+    footer {
+        padding: 20px;
+        margin-top: 20px;
+        background: #1e3a8a;
+        color: white;
+        font-size: 14px;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width:700px) {
+        .card { width:90%; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <button class="back-btn" onclick="goBack()" title="العودة إلى لوحة القسم"><i class="fas fa-arrow-right"></i></button>
+    <div class="welcome" id="welcomeMsg">👋 أهلًا بطلاب الفرقة الأولى!</div>
+    <div class="department-name">قسم تكنولوجيا المعلومات</div>
+    <div class="year-label" id="yearLabel">الإشراف</div>
+</header>
+
+<div class="container" id="supervisionContainer">
+</div>
+
+<script>
+const container = document.getElementById('supervisionContainer');
+
+// Simplified data for only two people
+const professors = [
+    {
+        name: 'م/ عمر الجمل',
+        task: 'عضو هيئة تدريس',
+        img: 'images/omar.png',
+        office: '313'
+    }
+];
+
+const assistants = [
+    {
+        name: 'م/ يوسف محمد',
+        task: 'عضو هيئة تدريس',
+        img: 'images/yosif.png',
+        office: '313'
+    }
+];
+
+/**
+ * Creates and appends a staff member card to the container.
+ * @param {object} person - The person's data.
+ * @param {string} type - The type of staff member ('prof' or 'assistant').
+ */
+function createCard(person, type) {
+    const card = document.createElement('div');
+    card.classList.add('card', type);
+
+    // Simplified innerHTML without the schedule table
+    card.innerHTML = `
+        <img src="${person.img}" alt="صورة ${person.name}">
+        <h3>${person.name}</h3>
+        <p>${person.task}</p>
+        <p class="office-info"><strong>المكتب:</strong> ${person.office}</p>
+    `;
+    container.appendChild(card);
+}
+
+// Generate cards for the selected professor and assistant
+professors.forEach(p => createCard(p, 'prof'));
+assistants.forEach(a => createCard(a, 'assistant'));
+
+function goBack() {
+    window.location.href = 'dashboard.html';
+}
+</script>
+<footer>© 2025 جامعة برج العرب التكنولوجية - قسم تكنولوجيا المعلومات</footer>
+<footer>©تم انشاء هذا الموقع بواسطه Fatma Sabry Abdallah</footer>
+</body>
+</html>
+

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قوائم الفرقة الثالثة</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  font-family:'Cairo',sans-serif;
+  background-color:#e6f7f5;
+  color: #1e3a8a;
+  text-align:center;
+  overflow-x:hidden;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===== Header ===== */
+header {
+  background:linear-gradient(135deg,#00bfa5,#26c6da,#4dd0e1);
+  color:#fff;
+  padding:40px 10px 45px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  position:relative;
+}
+.back-btn {
+  position:absolute;
+  left:15px; top:15px;
+  background-color:rgba(255,255,255,0.15);
+  border:none; color:white;
+  font-size:20px; border-radius:50%;
+  width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.back-btn:hover {background-color:rgba(255,255,255,0.3); transform:scale(1.1);}
+
+/* ===== Layout ===== */
+.main-container {
+  width:95%;
+  max-width:900px;
+  margin:30px auto 100px auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+/* ===== PDF Container ===== */
+.pdf-container {
+  width:100%;
+  height:80vh;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  background-color:#fff;
+}
+.pdf-container iframe {
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+/* ===== Search Section ===== */
+.search-section {
+  width:100%;
+  max-width:500px;
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  text-align:center;
+}
+.search-section h2 {
+  margin-bottom:10px;
+  color: #1e3a8a;
+}
+input {
+  width:90%;
+  padding:10px;
+  border:1px solid #b2dfdb;
+  border-radius:8px;
+  font-size:1rem;
+  margin-bottom:15px;
+  text-align:center;
+}
+button {
+  background-color:#26a69a;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+button:hover {background-color:#009688;}
+
+.results {
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+}
+
+/* ===== Student Card ===== */
+.student-card {
+  background:linear-gradient(135deg,#a1c4fd,#c2e9fb);
+  width:90%;
+  max-width:400px;
+  border-radius:15px;
+  padding:15px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  transition:transform 0.3s ease;
+  text-align:right;
+}
+.student-card:hover {transform:translateY(-5px);}
+.student-card h3 {margin-bottom:8px; color: #1e3a8a; font-size:18px;}
+.student-card p {color: #1e3a8a; margin:4px 0; font-size:15px;}
+
+/* ===== Footer ===== */
+footer {
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#e6f7f5;
+  color: #1e3a8a;
+  text-align:center;
+  padding:10px 0;
+  font-size:14px;
+  border-top:1px solid #c8e6e4;
+  box-shadow:0 -2px 8px rgba(0,0,0,0.05);
+  z-index:10;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .pdf-container {height:65vh;}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <button class="back-btn" onclick="goBack()" title="العودة إلى لوحة القسم"><i class="fas fa-arrow-right"></i></button>
+  <h1>قسم تكنولوجيا المعلومات</h1>
+  <h3>قوائم الفرقة الثالثة</h3>
+</header>
+
+<div class="main-container">
+  <!-- PDF Viewer -->
+  <div class="pdf-container">
+    <iframe src="pdfs/قوائم الفرقة الثالثة.pdf" title="قوائم الفرقة الثالثة"></iframe>
+  </div>
+
+  <!-- Search Section -->
+  <!--<div class="search-section">
+    <h2>🔍 ابحث عن بياناتك</h2>
+    <input type="text" id="searchInput" placeholder="اكتب اسمك أو رقم الجلوس...">
+    <button onclick="searchStudent()">بحث</button>
+    <div id="results" class="results"></div>
+  </div>
+</div>-->
+
+<footer>© 2025 جامعة برج العرب التكنولوجية - قسم تكنولوجيا المعلومات</footer>
+<footer>©تم انشاء هذا الموقع بواسطه Fatma Sabry Abdallah</footer>
+<script>
+
+const students = [
+ { seatNumber: "2320006", name: "ابراهيم عبدالله محمد عبدالله", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320007", name: "ابراهيم كمال الرحيم محمد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320009", name: "ابراهيم ناظي ابراهيم رضوان", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320012", name: "احمد ابو اليزيد عبدالله", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320015", name: "احمد السيد حسن عطية ابو شعره", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320021", name: "احمد الدين عبد الستار", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320022", name: "احمد نبر سعد محمد نبر", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320026", name: "احمد بيلول ابراهيم شاور", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320027", name: "احمد جمال عبد المحسن", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320028", name: "احمد حارس احمد عبد الرازق محمد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320032", name: "احمد خالد احمد محمد عبد الرحمن", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320033", name: "احمد رضا سيد عبد المقصود", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320034", name: "احمد رمضان عبد القادر لطفي شيحة", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320043", name: "احمد عاطف غلاب محمد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320044", name: "احمد عبد الجواد عبد الجواد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320046", name: "احمد عبد العزيز علي حمودة", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320048", name: "احمد عبد المحسن ابراهيم ابراهيم عزام", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320057", name: "احمد عبد اللطيف عبدالله محمد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320062", name: "احمد محمد ابراهيم مصطفى", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320063", name: "احمد محمد احمد الجوهري", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320065", name: "احمد محمد احمد حسن عثمان", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320068", name: "احمد محمد زكي محمد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320073", name: "احمد محمد هشام", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320078", name: "احمد محمود احمد الحمادي", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320087", name: "احمد عبد الجواد عبد العزيز عبد الجواد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320093", name: "اسامه محمد عبد المنعم محمد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320102", name: "اسلام ابراهيم خلف الله", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320106", name: "اسامه خيري سعد السيد صفر", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320111", name: "الاء مصطفى محمود ثابت", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320118", name: "اماني عبد المساعد ابراهيم عبد القادر", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320119", name: "اسراء كرم صبحي محمود", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320126", name: "انتصار علي فؤاد السيد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320128", name: "ايا محمد عبد المعتمد رشوان يونس", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320129", name: "اية موسى محمد خالد الله", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320132", name: "ايمان سمير راشد اسماعيل بندق", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320133", name: "ايمان شاكر عبد الحميد حسن الشيبيني", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320135", name: "ايمان علي علي الشيرسي", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320139", name: "اية جمال شعبان محمد", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320148", name: "احمد رضا حامد عبد الغني خليفة", major: "Network", class: "1", group: "A" },
+  { seatNumber: "2320150", name: "اشرف حسام عبد الله جميل", major: "Network", class: "1", group: "A" },
+
+  // المجموعة B (الطلبة من 41 إلى 80)
+  { seatNumber: "2320154", name: "ادهم عبد القادر شعبان", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320155", name: "ابو بكر عبد المتعال محمد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320159", name: "بسام محمد ضيف قمر نصر", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320164", name: "بهاء عالي عطالله علي", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320169", name: "بهاء الدين همام محمد عبد الحفيظ", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320173", name: "جسور محمد الوكيل احمد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320174", name: "جلال عثمان السيد محمد حسن", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320178", name: "جمال زكي محمد المتين", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320179", name: "جمال محمد احمد الجوهري", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320180", name: "جمال محمد جمال حسن البلكيمي", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320185", name: "حازم احمد صادق عمر الغندور", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320186", name: "حازم محمد محمد ابراهيم ابو حسن", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320191", name: "حديدة محمد حمدي علي فتح الله", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320195", name: "حسن ابراهيم محمد ابراهيم", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320199", name: "حسين عبد العاطي حسني جبر", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320201", name: "حلمي سعيد حلمي يونس", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320204", name: "حسين محمد صبحي", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320208", name: "خالد عبد العظيم عبد العظيم حسن شحات", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320210", name: "خالد محمد سعد محمد عبد الله", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320211", name: "خالد محمد قاسم محمد طاهر", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320217", name: "خالد وجدي حجاج شاور", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320225", name: "رشاد رجب رشاد عبد العظيم امين", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320228", name: "رزق سامح ابراهيم خليل ابراهيم", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320241", name: "زكي ربيع عبد الحميد علي عوض", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320242", name: "زكي رضا فؤاد رجب", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320245", name: "زكي محمد عبد الحميد شرق", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320249", name: "زكي محمد محمد محمد الحداد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320250", name: "زكي محمد محمد محمد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320252", name: "زياد بركات عبد اللطيف السيد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320257", name: "ساري سعيد محمد عبد القادر سليمان العطار", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320259", name: "سامح ناصر السيد ابو الغيط", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320262", name: "سلسل نور صادق محمد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320273", name: "شادي محمد مصطفى احمد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320277", name: "شروق ابراهيم عبد الحليم", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320279", name: "شروق عبد الفتاح رميح ابراهيم عطية", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320284", name: "شمس محمد خضر اسماعيل السيد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320287", name: "شهاب علي ابراهيم", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320288", name: "شهد احمد عبد الله محمد", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320293", name: "شهد علاء سعد كامل نقيب", major: "Network", class: "1", group: "B" },
+  { seatNumber: "2320296", name: "شهد محمد رجب نصر", major: "Network", class: "1", group: "B" }
+];
+
+// البحث الذكي
+/*function searchStudent() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
+
+  if (query === "") {
+    resultsDiv.innerHTML = "<p>من فضلك أدخل الاسم أو رقم الجلوس.</p>";
+    return;
+  }
+
+  const results = students.filter(s => 
+    s.name.toLowerCase().includes(query) || s.seatNumber.includes(query)
+  );
+
+  if (results.length === 0) {
+    resultsDiv.innerHTML = "<p>لم يتم العثور على نتائج.</p>";
+    return;
+  }
+
+  results.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "student-card";
+    card.innerHTML = `
+      <h3>${s.name}</h3>
+      <p><strong>رقم الجلوس:</strong> ${s.seatNumber}</p>
+      <p><strong>التخصص:</strong> ${s.major}</p>
+      <p><strong>الفصل:</strong> ${s.class}</p>
+      <p><strong>المجموعة:</strong> ${s.group}</p>
+    `;
+    resultsDiv.appendChild(card);
+  });
+}*/
+
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+</script>
+</body>
+</html>
+

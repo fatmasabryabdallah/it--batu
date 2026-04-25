@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة قسم تكنولوجيا المعلومات</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Cairo", sans-serif;
+        text-align: center;
+        color: #1e3a8a;
+        background-color: var(--bg-color, #ffffff);
+        transition: background-color 0.6s ease;
+        overflow-x: hidden;
+        animation: fadeIn 1s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header {
+        position: relative;
+        background: var(
+          --header-gradient,
+          linear-gradient(135deg, #00bfa5, #26c6da, #4dd0e1)
+        );
+        color: #fff;
+        padding: 25px 10px 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        transition: background 0.6s ease;
+      }
+
+      .back-btn {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        background-color: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: white;
+        font-size: 20px;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+      }
+      .back-btn:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+      }
+
+      .logos {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .logos img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .welcome {
+        font-size: 1.2rem;
+        margin-top: 8px;
+        color: #fff;
+        opacity: 0.95;
+      }
+      .department-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .year-label {
+        font-size: 1.1rem;
+        color: #fff;
+        opacity: 0.9;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 10px;
+        gap: 25px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        background: var(--card-bg, #c1f0ec);
+        color: #1e3a8a;
+        width: 90%;
+        max-width: 320px;
+        padding: 25px 20px;
+        border-radius: 22px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-size: 18px;
+        cursor: pointer;
+        transition: transform 0.4s, box-shadow 0.4s, background 0.4s;
+        text-decoration: none;
+      }
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        background: var(
+          --card-hover,
+          linear-gradient(135deg, #80deea, #4db6ac)
+        );
+      }
+      .card-icon {
+        font-size: 40px;
+        color: var(--icon-color, #009688);
+      }
+      .card p {
+        font-size: 14px;
+        color: #1e3a8a;
+      }
+
+      footer {
+        padding: 20px;
+        margin-top: 20px;
+        background: var(
+          --header-gradient,
+          linear-gradient(135deg, #00bfa5, #26c6da, #4dd0e1)
+        );
+        color: white;
+        font-size: 14px;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (min-width: 700px) {
+        .container {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <button class="back-btn" onclick="goBack()" title="العودة إلى الصفحة الرئيسية">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+
+      <div class="logos">
+        <img src="images/uni_logo.png" alt="Logo1" />
+        <img src="images/kolya_logo.png" alt="Logo2" />
+        <img src="images/dep_logo.png" alt="Logo3" />
+      </div>
+      <div class="welcome" id="welcomeMsg"></div>
+      <div class="department-name">قسم تكنولوجيا المعلومات</div>
+      <div class="year-label" id="yearLabel"></div>
+    </header>
+
+    <div class="container">
+      <a class="card">
+        <i class="fas fa-chalkboard-teacher card-icon"></i>
+        <h3>منصة LMS</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-tools card-icon"></i>
+        <h3>الإشراف</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-file-alt card-icon"></i>
+        <h3>نموذج الشكاوي</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-calendar-alt card-icon"></i>
+        <h3>الجداول الدراسية</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-user-tie card-icon"></i>
+        <h3>الإشراف الأكاديمي</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-users card-icon"></i>
+        <h3>قوائم الطلاب</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-chalkboard-user card-icon"></i>
+        <h3>أعضاء هيئة التدريس</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-graduation-cap card-icon"></i>
+        <h3>الدورات التدريبية</h3>
+        <p></p>
+      </a>
+
+      <a class="card">
+        <i class="fas fa-info-circle card-icon"></i>
+        <h3>التعليمات</h3>
+        <p></p>
+      </a>
+    </div>
+
+    <script>
+      const year = localStorage.getItem("selectedYear");
+      const yearLabel = document.getElementById("yearLabel");
+      const welcomeMsg = document.getElementById("welcomeMsg");
+
+      const cardsData = {
+        year1: {
+          welcome: "👋 أهلًا بطلاب الفرقة الأولى!",
+          LMS: {
+            link: "https://batechu.it-club.top/lms/login",
+            text: "الوصول للمحاضرات والمحتوى التعليمي",
+          },
+          complaints: {
+            link: "https://script.google.com/macros/s/AKfycbwXmp0XsnYxmLEJDEgumIA1Slx5-O7cabhwQWHQW7Hq9vNThI8sgtqvb0PhA8FGYCWxPQ/exec",
+            text: "تقديم الشكاوى والملاحظات الرسمية",
+          },
+          schedule: {
+            link: "schedule-year1.html",
+            text: "عرض الجدول الدراسي للفرقة الأولى",
+          },
+          supervision: {
+            link: "supervision-year1.html",
+            text: "متابعة المشرف الأكاديمي والمهام",
+          },
+          techSupervision: {
+            link: "tech-supervision1.html",
+            text: "للتواصل مع اشراف الدفعه وطلب المساعدة",
+          },
+          students: {
+            link: "students-year1.html",
+            text: "قوائم طلاب الفرقة الأولى",
+          },
+          staff: {
+            link: "staff1.html",
+            text: " أعضاء هيئة التدريس بالقسم والمواد المقررة ",
+          },
+          assignments: {
+            link: "assignments-year1.html",
+            text: "الوصول للدورات التدريبية",
+          },
+          instructions: {
+            link: "instructions.html",
+            text: "معلومات وإرشادات للطلاب",
+          },
+        },
+        year2: {
+          welcome: "👋 أهلًا بطلاب الفرقة الثانية!",
+          LMS: {
+            link: "https://batechu.it-club.top/lms/login",
+            text: "الوصول للمحاضرات والمحتوى التعليمي",
+          },
+          complaints: {
+            link: "https://script.google.com/macros/s/AKfycbwXmp0XsnYxmLEJDEgumIA1Slx5-O7cabhwQWHQW7Hq9vNThI8sgtqvb0PhA8FGYCWxPQ/exec",
+            text: "تقديم الشكاوى والملاحظات الرسمية",
+          },
+          schedule: {
+            link: "schedule-year2.html",
+            text: "عرض الجدول الدراسي للفرقة الثانية",
+          },
+          supervision: {
+            link: "supervision-year2.html",
+            text: "متابعة المشرف الأكاديمي والمهام",
+          },
+          techSupervision: {
+            link: "tech-supervision2.html",
+            text: "للتواصل مع فريق الدعم التقني وطلب المساعدة",
+          },
+          students: {
+            link: "students-year2.html",
+            text: "قوائم طلاب الفرقة الثانية",
+          },
+          staff: {
+            link: "staff2.html",
+            text: "أعضاء هيئة التدريس بالقسم و المواد المقررة  ",
+          },
+          assignments: {
+            link: "assignments-year2.html",
+            text: "الوصول للدورات التدريبية",
+          },
+          instructions: {
+            link: "instructions.html",
+            text: "معلومات وإرشادات للطلاب",
+          },
+        },
+        year3: {
+          welcome: "👋 أهلًا بطلاب الفرقة الثالثة!",
+          LMS: {
+            link: "https://batechu.it-club.top/lms/login",
+            text: "الوصول للمحاضرات والمحتوى التعليمي",
+          },
+          complaints: {
+            link: "https://script.google.com/macros/s/AKfycbwXmp0XsnYxmLEJDEgumIA1Slx5-O7cabhwQWHQW7Hq9vNThI8sgtqvb0PhA8FGYCWxPQ/exec",
+            text: "تقديم الشكاوى والملاحظات الرسمية",
+          },
+          schedule: {
+            link: "schedule-year3.html",
+            text: "عرض الجدول الدراسي للفرقة الثالثة",
+          },
+          supervision: {
+            link: "supervision-year3.html",
+            text: "متابعة المشرف الأكاديمي والمهام",
+          },
+          techSupervision: {
+            link: "tech-supervision3.html",
+            text: "للتواصل مع فريق الدعم التقني وطلب المساعدة",
+          },
+          students: {
+            link: "students-year3.html",
+            text: "قوائم طلاب الفرقة الثالثة",
+          },
+          staff: { link: "staff3.html", text: "أعضاء هيئة التدريس بالقسم" },
+          assignments: {
+            link: "assignments-year3.html",
+            text: "الوصول للدورات التدريبية",
+          },
+          instructions: {
+            link: "instructions.html",
+            text: "معلومات وإرشادات للطلاب",
+          },
+        },
+        year4: {
+          welcome: "🎓 بالتوفيق لطلاب الفرقة الرابعة!",
+          LMS: {
+            link: "https://batechu.it-club.top/lms/login",
+            text: "الوصول للمحاضرات والمحتوى التعليمي",
+          },
+          complaints: {
+            link: "https://script.google.com/macros/s/AKfycbwXmp0XsnYxmLEJDEgumIA1Slx5-O7cabhwQWHQW7Hq9vNThI8sgtqvb0PhA8FGYCWxPQ/exec",
+            text: "تقديم الشكاوى والملاحظات الرسمية",
+          },
+          schedule: {
+            link: "schedule-year4.html",
+            text: "عرض الجدول الدراسي للفرقة الرابعة",
+          },
+          supervision: {
+            link: "supervision-year4.html",
+            text: "متابعة المشرف الأكاديمي والمهام",
+          },
+          techSupervision: {
+            link: "tech-supervision4.html",
+            text: "للتواصل مع فريق الدعم التقني وطلب المساعدة",
+          },
+          students: {
+            link: "students-year4.html",
+            text: "قوائم طلاب الفرقة الرابعة",
+          },
+          staff: { link: "staff4.html", text: "أعضاء هيئة التدريس بالقسم" },
+          assignments: {
+            link: "assignments-year4.html",
+            text: "الوصول للدورات التدريبية",
+          },
+          instructions: {
+            link: "instructions.html",
+            text: "معلومات وإرشادات للطلاب",
+          },
+        },
+      };
+
+      const data = cardsData[year] || cardsData["year1"];
+      welcomeMsg.textContent = data.welcome;
+      yearLabel.textContent = `الفرقة ${year ? year.slice(-1) : "الأولى"}`;
+
+      // تحديث الكروت ديناميكيًا
+      const cardElements = document.querySelectorAll(".container .card");
+      cardElements.forEach((card) => {
+        const key = card.querySelector("h3").textContent.trim();
+        switch (key) {
+          case "منصة LMS":
+            card.href = data.LMS.link;
+            card.querySelector("p").textContent = data.LMS.text;
+            break;
+          case "نموذج الشكاوي":
+            card.href = data.complaints.link;
+            card.querySelector("p").textContent = data.complaints.text;
+            break;
+          case "الجداول الدراسية":
+            card.href = data.schedule.link;
+            card.querySelector("p").textContent = data.schedule.text;
+            break;
+          case "الإشراف الأكاديمي":
+            card.href = data.supervision.link;
+            card.querySelector("p").textContent = data.supervision.text;
+            break;
+          case "الإشراف":
+            card.href = data.techSupervision.link;
+            card.querySelector("p").textContent = data.techSupervision.text;
+            break;
+          case "قوائم الطلاب":
+            card.href = data.students.link;
+            card.querySelector("p").textContent = data.students.text;
+            break;
+          case "أعضاء هيئة التدريس":
+            card.href = data.staff.link;
+            card.querySelector("p").textContent = data.staff.text;
+            break;
+          case "الدورات التدريبية":
+            card.href = data.assignments.link;
+            card.querySelector("p").textContent = data.assignments.text;
+            break;
+          case "التعليمات":
+            card.href = data.instructions.link;
+            card.querySelector("p").textContent = data.instructions.text;
+            break;
+        }
+      });
+
+      function goBack() {
+        window.location.href = "index.html";
+      }
+    </script>
+
+    <footer>
+      <p>© 2025 جامعة برج العرب التكنولوجية - قسم تكنولوجيا المعلومات</p>
+      <p>تم انشاء هذا الموقع بواسطه Fatma Sabry Abdallah</p>
+    </footer>
+  </body>
+</html>
+

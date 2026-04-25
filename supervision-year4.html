@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإشراف الأكاديمي - الفرقة الرابعة</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: 'Cairo', sans-serif;
+        text-align:center;
+        background-color: #ffffff;
+        color: #1e3a8a;
+        transition: background-color 0.6s ease;
+        overflow-x:hidden;
+    }
+
+    header {
+        position:relative;
+        background: #1e3a8a;
+        color:#fff;
+        padding:25px 10px 35px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:10px;
+        box-shadow:0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .back-btn {
+        position:absolute;
+        left:15px; top:15px;
+        background-color: rgba(255,255,255,0.15);
+        border:none; color:white;
+        font-size:20px; border-radius:50%;
+        width:42px; height:42px;
+        display:flex; align-items:center; justify-content:center;
+        cursor:pointer; transition:all 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    }
+    .back-btn:hover { background-color: rgba(255,255,255,0.3); transform: scale(1.1); }
+
+    .department-name { font-size:1.5rem; font-weight:bold; }
+    .year-label { font-size:1.1rem; color:#fff; opacity:0.9; }
+    .welcome { font-size:1.2rem; color:#fff; opacity:0.95; }
+
+    .container {
+        display:flex; flex-wrap:wrap; justify-content:center; gap:25px;
+        padding:30px 15px;
+    }
+
+    .card {
+        display:flex; flex-direction:column; align-items:center; gap:10px;
+        width:300px; padding:20px; border-radius:20px;
+        color: #1e3a8a; text-align:center; font-size:16px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transition: transform 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card img {
+        width:100px; height:100px; object-fit:cover;
+        border-radius:50%; border:3px solid #fff; box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .card h3 { font-size:18px; font-weight:bold; }
+    .card p { font-size:14px; color: #1e3a8a; margin: 0; }
+
+    /* Card Colors */
+    .prof { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+    .assistant { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+
+    /* Always visible details */
+    .details {
+        width: 100%;
+        padding: 10px 0 0 0;
+        font-size: 14px;
+        color: #1e3a8a;
+        text-align: right;
+    }
+    .details strong {
+        display: block;
+        margin-bottom: 8px;
+    }
+    .details .office-info {
+        margin-top: 12px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* Table styles */
+    .details table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .details td {
+        border: 1px solid rgba(2, 73, 80, 0.2);
+        padding: 8px;
+        font-size: 13px;
+    }
+    .details td:first-child {
+        font-weight: bold;
+        width: 35%;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width:700px) {
+        .card { width:90%; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i></button>
+    <div class="welcome" id="welcomeMsg">👋 أهلًا بطلاب الفرقة الرابعة!</div>
+    <div class="department-name">قسم تكنولوجيا المعلومات</div>
+    <div class="year-label" id="yearLabel">الفرقة الرابعة</div>
+</header>
+
+<div class="container" id="supervisionContainer">
+    </div>
+
+<script>
+const container = document.getElementById('supervisionContainer');
+
+// Data for the fourth year
+const professors = [
+    {
+        name: 'د. علي أحمد عبدالفتاح العبد',
+        task: 'عضو هيئة تدريس',
+        img: 'images/dr_ali.png',
+        schedule: 'السبت: الفترات 5,6,7,8 | الأحد: الفترات 1,2,3,4,5,6 | الاثنين: الفترات 1,2,3,4,5,6 | الثلاثاء: الفترات 1,2,3,4,5,6',
+        office: 'غرفة 302'
+    },
+    {
+        name: 'د/محمد عبد الفتاح على',
+        task: 'عضو هيئة تدريس',
+        img: 'images/dr_mohamed_abdelftah.png',
+        schedule: 'السبت: الفترات 5,6 | الثلاثاء: الفترات 1,2,3,4,5,6',
+        office: 'غرفة 307'
+    },
+];
+
+const assistants = [
+    {
+        name: 'م.اسراء عبدالرسول',
+        task: 'محاضر مساعد',
+        img: 'images/eng_esraa.png',
+        schedule: 'السبت: الفترات 1,2 | الأحد: الفترات 1,2,3,4 | الاربعاء: الفترات 3,4,5,6,7,8,9,10',
+        office: 'غير محدد'
+    },
+    {
+        name: 'م.غادة احمد عارف البودي',
+        task: 'مدرس مساعد',
+        img: 'images/eng_ghadah.png',
+        schedule: 'الأحد: الفترات 3,4 | الاثنين: الفترات 1,2,3,4,5,6,7,8 | الثلاثاء: الفترات 6,5',
+        office: 'غرفة 306'
+    },
+    {
+        name: 'م.بلال عادل محمد',
+        task: 'مساعد تدريس',
+        img: 'images/eng_belal.png',
+        schedule: 'السبت: الفترات 1,2,7,8 | الأحد: الفترات 1,2,3,4 | الاثنين: الفترات 1,2,3,4 | الأربعاء: الفترات 1,2,5,6',
+        office: 'غرفة 306'
+    },
+    {
+        name: 'م.احمد كامل احمد يونس',
+        task: 'مساعد تدريس',
+        img: 'images/eng_ahmed.png',
+        schedule: 'الأحد: الفترات 7,8 | الاثنين: الفترات 1,2,3,4,5,6,7,8 | الثلاثاء: الفترات 1,2,3,4,5,6,7,8',
+        office: 'غرفة 306'
+    },
+];
+
+/**
+ * Creates an HTML table from a schedule string.
+ * @param {string} scheduleString - The string containing schedule info.
+ * @returns {string} - An HTML table string.
+ */
+function createScheduleTable(scheduleString) {
+    if (!scheduleString) return '<p>لا توجد مواعيد محددة.</p>';
+
+    const rows = scheduleString.split('|').map(s => s.trim());
+    let tableHTML = '<table>';
+
+    rows.forEach(row => {
+        const parts = row.split(':');
+        if (parts.length === 2) {
+            const day = parts[0].trim();
+            const periods = parts[1].trim();
+            tableHTML += `<tr><td>${day}</td><td>${periods}</td></tr>`;
+        }
+    });
+
+    tableHTML += '</table>';
+    return tableHTML;
+}
+
+/**
+ * Creates and appends a staff member card to the container.
+ * @param {object} person - The person's data.
+ * @param {string} type - The type of staff member ('prof' or 'assistant').
+ */
+function createCard(person, type) {
+    const card = document.createElement('div');
+    card.classList.add('card', type);
+
+    const scheduleTable = createScheduleTable(person.schedule);
+
+    card.innerHTML = `
+        <img src="${person.img}" alt="صورة ${person.name}">
+        <h3>${person.name}</h3>
+        <p>${person.task}</p>
+        <div class="details">
+            <strong>مواعيد التواجد:</strong>
+            ${scheduleTable}
+            <p class="office-info"><strong>المكتب:</strong> ${person.office || 'غير محدد'}</p>
+        </div>
+    `;
+    container.appendChild(card);
+}
+
+// Generate cards for professors and assistants
+professors.forEach(p => createCard(p, 'prof'));
+assistants.forEach(a => createCard(a, 'assistant'));
+
+function goBack() {
+    window.location.href = 'dashboard.html';
+}
+</script>
+<footer>© 2025 جامعة برج العرب التكنولوجية - قسم تكنولوجيا المعلومات</footer>
+<footer>©تم انشاء هذا الموقع بواسطه Fatma Sabry Abdallah</footer>
+</body>
+</html>
+

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أعضاء هيئة التدريس - الفرقة الثانية</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Cairo', sans-serif;
+  text-align:center;
+  background-color: #ffffff;
+  color: #1e3a8a;
+  overflow-x:hidden;
+}
+
+header {
+  position:relative;
+  background: #1e3a8a;
+  color:#fff;
+  padding:25px 10px 35px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+.back-btn {
+  position:absolute;
+  left:15px; top:15px;
+  background-color: rgba(255,255,255,0.15);
+  border:none; color:white;
+  font-size:20px; border-radius:50%;
+  width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.back-btn:hover { background-color: rgba(255,255,255,0.3); transform: scale(1.1); }
+
+.department-name { font-size:1.5rem; font-weight:bold; }
+.year-label { font-size:1.1rem; color:#fff; opacity:0.9; }
+
+.container {
+  width:90%;
+  max-width:1000px;
+  margin:30px auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* المادة */
+.subject {
+  background: #fff;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  overflow:hidden;
+  transition: all 0.3s ease;
+}
+.subject-header {
+  background: linear-gradient(135deg, #4dd0e1, #80deea);
+  padding:15px;
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.subject-header i {
+  transition: transform 0.4s ease;
+}
+.subject.active .subject-header i {
+  transform: rotate(180deg);
+}
+.subject-content {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.5s ease, padding 0.3s ease;
+  background:#e0f7fa;
+  padding:0 15px;
+}
+.subject.active .subject-content {
+  max-height:1000px;
+  padding:15px;
+}
+
+/* كروت الدكاترة */
+.teachers {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:10px;
+}
+.card {
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  border-radius:15px;
+  width:230px;
+  padding:15px;
+  text-align:center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor:pointer;
+}
+.card:hover {
+  transform:translateY(-6px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+.card img {
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #fff;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.card h3 {
+  margin-top:10px;
+  font-size:17px;
+  color: #1e3a8a;
+}
+.card p {
+  font-size:14px;
+  color: #1e3a8a;
+  margin-top:5px;
+}
+
+@media (max-width:700px) {
+  .card { width:90%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i></button>
+  <div class="department-name">قسم تكنولوجيا المعلومات</div>
+  <div class="year-label">أعضاء هيئة التدريس - الفرقة الثانية</div>
+</header>
+
+<div class="container" id="facultyContainer">
+  <!-- المواد هتظهر هنا -->
+</div>
+
+<script>
+// بيانات المواد والدكاترة
+const subjects = [
+  {
+    name: "Linux Essentials",
+    teachers: [
+      { name: "د/ ايمان شوقي", img: "images/dr_eman.png", office: "مكتب 206" },
+     // { name: "م. دعاء نبيل", img: "images/default_prof.png", office: "مكتب 105" }
+    ]
+  },
+  {
+    name: "Programming Essentials in C++",
+    teachers: [
+      { name: "د/ نهال الازلي", img: "images/dr_nehal.png", office: "مكتب 210" },
+      { name: "د/غاده محمد", img: "images/dr_ghada.png", office: "مكتب 307" }
+    ]
+  },
+  {
+    name: "Web Programming I, II",
+    teachers: [
+      { name: "ا.م.د/ اشرف عبد العزيز", img: "images/dr_ashraf.png", office: "مكتب 311" },
+      //{ name: "م. مصطفى إبراهيم", img: "images/default_prof.png", office: "مكتب 318" }
+    ]
+  },
+  {
+    name: "Introduction to DB",
+    teachers: [
+      { name: "د/ نهال الازلي", img: "images/dr_nehal.png", office: "مكتب 210" },
+    //  { name: "م. رنا إبراهيم", img: "images/default_prof.png", office: "مكتب 123" }
+    ]
+  },
+  {
+    name: "Digital Engineering",
+    teachers: [
+      { name: " ا.م.د/ اسامه النحاس", img: "images/dr_osama.png", office: "مكتب 308" },
+      { name: "د/ دينا عبد الحفيظ", img: "images/dr_dina.png", office: "مكتب 307" },
+      { name: "د/ بسنت طلبة", img: "images/dr_bassant.png", office: "مكتب 302" },
+    ]
+  },
+  {
+    name: "Operating System",
+    teachers: [
+      { name: "د/ غادة محمد", img: "images/dr_ghada.png", office: "مكتب 307" },
+    ]
+  }
+];
+
+// إنشاء الأقسام
+const container = document.getElementById("facultyContainer");
+
+subjects.forEach((subj, index) => {
+  const subjectDiv = document.createElement("div");
+  subjectDiv.className = "subject";
+  subjectDiv.innerHTML = `
+    <div class="subject-header">
+      <span>${subj.name}</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="subject-content">
+      <div class="teachers">
+        ${subj.teachers.map(t => `
+          <div class="card">
+            <img src="${t.img}" alt="${t.name}">
+            <h3>${t.name}</h3>
+            <p><strong>المكتب:</strong> ${t.office}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  container.appendChild(subjectDiv);
+});
+
+// التحكم في الفتح والإغلاق
+const allSubjects = document.querySelectorAll(".subject");
+allSubjects.forEach(sub => {
+  sub.querySelector(".subject-header").addEventListener("click", () => {
+    allSubjects.forEach(s => {
+      if (s !== sub) s.classList.remove("active");
+    });
+    sub.classList.toggle("active");
+  });
+});
+
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أعضاء هيئة التدريس - الفرقة الرابعة</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Cairo', sans-serif;
+  text-align:center;
+  background-color: #ffffff;
+  color: #1e3a8a;
+  overflow-x:hidden;
+}
+
+header {
+  position:relative;
+  background: #1e3a8a;
+  color:#fff;
+  padding:25px 10px 35px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+.back-btn {
+  position:absolute;
+  left:15px; top:15px;
+  background-color: rgba(255,255,255,0.15);
+  border:none; color:white;
+  font-size:20px; border-radius:50%;
+  width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.back-btn:hover { background-color: rgba(255,255,255,0.3); transform: scale(1.1); }
+
+.department-name { font-size:1.5rem; font-weight:bold; }
+.year-label { font-size:1.1rem; color:#fff; opacity:0.9; }
+
+.container {
+  width:90%;
+  max-width:1000px;
+  margin:30px auto 80px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* التخصص */
+.major {
+  background:#fff;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  overflow:hidden;
+  transition: all 0.3s ease;
+}
+.major-header {
+  padding:18px;
+  color: #1e3a8a;
+  font-size:20px;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.major-header.software { background:#e3f2fd; }
+.major-header.network { background:#f5f5f5; }
+.major-header i { transition: transform 0.4s ease; }
+.major.active .major-header i { transform: rotate(180deg); }
+
+.major-content {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.5s ease, padding 0.3s ease;
+  background:#f1fcfc;
+  padding:0 15px;
+}
+.major.active .major-content {
+  max-height:2000px;
+  padding:15px;
+}
+
+/* المواد */
+.subject {
+  background: #fff;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+  overflow:hidden;
+  transition: all 0.3s ease;
+  margin-bottom:10px;
+}
+.subject-header {
+  background: linear-gradient(135deg, #44bece, #80deea);
+  padding:12px 15px;
+  color:#fff;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.subject-header i { transition: transform 0.4s ease; }
+.subject.active .subject-header i { transform: rotate(180deg); }
+
+.subject-content {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.5s ease, padding 0.3s ease;
+  background:#e0f7fa;
+  padding:0 10px;
+}
+.subject.active .subject-content {
+  max-height:1000px;
+  padding:10px;
+}
+
+/* كروت الدكاترة */
+.teachers {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:10px;
+}
+.card {
+  background: linear-gradient(135deg, #90b2e7, #6b95a9);
+  border-radius:15px;
+  width:230px;
+  padding:15px;
+  text-align:center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor:pointer;
+}
+.card:hover {
+  transform:translateY(-6px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+.card img {
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #fff;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.card h3 {
+  margin-top:10px;
+  font-size:17px;
+  color: #1e3a8a;
+}
+.card p {
+  font-size:14px;
+  color: #1e3a8a;
+  margin-top:5px;
+}
+
+@media (max-width:700px) {
+  .card { width:90%; }
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #e6f7f5;
+  color: #1e3a8a;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  border-top: 1px solid #c8e6e4;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+  z-index: 10;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i></button>
+  <div class="department-name">قسم تكنولوجيا المعلومات</div>
+  <div class="year-label">أعضاء هيئة التدريس - الفرقة الثالثة</div>
+</header>
+
+<div class="container" id="facultyContainer"></div>
+
+<script>
+const majors = [
+  {
+    name: "Software Engineering",
+    type: "software",
+    subjects: [
+
+    {
+        name: "CCNA R&S II",
+        teachers: [
+          { name: "د/ ايمان شوقي", img: "images/dr_eman.png", office: "206" },
+          
+        ]
+      },
+      {
+        name: "Mobile Programming II ",
+        teachers: [
+          { name: "د/ دينا عبد الحفيظ", img: "images/dr_dina.png", office: "307" },
+          //{ name: "م/ فاطمة إبراهيم", img: "images/dr_fatma.png", office: "302" }
+        ]
+      },
+      {
+        name: "IoT Architecture",
+        teachers: [
+         { name: "ا.م.د/ اسامه النحاس", img: "images/dr_osama.png", office: "308" },
+         { name: "د/ مي محمد", img: "images/dr_mai.png", office: "302" },
+         
+        ]
+      },
+      {
+        name: "Artificial Intelligence ",
+        teachers: [
+          { name: "د/ محمد عبد الفتاح", img: "images/dr_mohamed_abdelftah.png", office: "307" }
+        
+        ]
+      },
+      {
+        name: "Windows Programming I ",
+        teachers: [
+          { name: "د/ علي احمد عبد الفتاح", img: "images/dr_ali.png", office: "302" },
+          
+        ]
+      },
+      {
+         name: "Signal Processing",
+        teachers: [
+          { name: "ا.م.د/ اسامه النحاس", img: "images/dr_osama.png", office: "308" },
+          { name: "د/ بسنت طلبة", img: "images/dr_bassant.png", office: "302" }
+        ]
+
+      }
+      
+      
+    ]
+  },
+  {
+    name: "Network Engineering",
+    type: "network",
+    subjects: [
+      {
+        name: "CCNA R&S IV",
+        teachers: [
+          { name: "د/ ايمان شوقي", img: "images/dr_eman.png", office: "206" },
+          
+        ]
+      },
+      {
+        name: "IoT Architecture",
+        teachers: [
+         { name: "ا.م.د/ اسامه النحاس", img: "images/dr_osama.png", office: "308" },
+         { name: "د/ مي محمد", img: "images/dr_mai.png", office: "302" },
+        ]
+      },
+      {
+        name: "Artificial Intelligence ",
+        teachers: [
+          { name: "د/ محمد عبد الفتاح", img: "images/dr_mohamed_abdelftah.png", office: "307" }
+        ]
+      },
+    {
+        name: "CCNA Cyber security",
+        teachers: [
+          { name: "د/ علي احمد عبد الفتاح", img: "images/dr_ali.png", office: "302" },
+        ]
+      },
+      {
+        name: "Encryption Algorithm",
+        teachers: [
+          { name: "د/ رضوى مجدي", img: "images/dr_radwa.png", office: "302" }
+        ]
+      },
+       {
+        name: "Server Administration ",
+        teachers: [
+          { name: "د/ معتز حسن", img: "images/dr_moataz.png", office: "307" }
+        ]
+      },
+    ]
+  }
+];
+
+const container = document.getElementById("facultyContainer");
+
+majors.forEach(major => {
+  const majorDiv = document.createElement("div");
+  majorDiv.className = "major";
+  majorDiv.innerHTML = `
+    <div class="major-header ${major.type}">
+      <span>${major.name}</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="major-content">
+      ${major.subjects.map(subj => `
+        <div class="subject">
+          <div class="subject-header">
+            <span>${subj.name}</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="subject-content">
+            <div class="teachers">
+              ${subj.teachers.map(t => `
+                <div class="card">
+                  <img src="${t.img}" alt="${t.name}">
+                  <h3>${t.name}</h3>
+                  <p><strong>المكتب:</strong> ${t.office}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  container.appendChild(majorDiv);
+});
+
+// فتح وغلق التخصص
+document.querySelectorAll(".major-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const major = header.parentElement;
+    document.querySelectorAll(".major").forEach(m => m !== major && m.classList.remove("active"));
+    major.classList.toggle("active");
+  });
+});
+
+// فتح وغلق المواد
+document.addEventListener("click", e => {
+  if (e.target.closest(".subject-header")) {
+    const subject = e.target.closest(".subject");
+    const siblings = subject.parentElement.querySelectorAll(".subject");
+    siblings.forEach(s => s !== subject && s.classList.remove("active"));
+    subject.classList.toggle("active");
+  }
+});
+
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+</script>
+
+<footer>© 2025 جامعة برج العرب التكنولوجية - قسم تكنولوجيا المعلومات</footer>
+<footer>©تم انشاء هذا الموقع بواسطه Fatma Sabry Abdallah</footer>
+</body>
+</html>
+

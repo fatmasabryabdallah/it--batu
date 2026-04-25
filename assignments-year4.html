@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التدريبات</title>
+  <style>
+    /* ================== Reset & Base ================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background: linear-gradient(135deg, #dff6f5, #f9f9f9);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px 0;
+      background-color: #1e3a8a;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      background-color: white;
+      color: #1e3a8a;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #1e3a8a;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .trainings-section {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      background: #ffffffd9;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .trainings-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .trainings-section img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      border: 3px solid #00808033;
+    }
+
+    .trainings-section p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 15px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    صفحة التدريبات
+    <button class="back-btn" onclick="history.back()">⬅ رجوع</button>
+  </header>
+
+  <section class="trainings-section">
+    <img src="images\Earth_and_Moon-bro.png" alt="Training Image">
+    <p>لا يوجد تدريبات حالياً</p>
+  </section>
+
+   <footer>© 2025 جامعة برج العرب التكنولوجية - قسم تكنولوجيا المعلومات</footer>
+<footer>©تم انشاء هذا الموقع بواسطه Fatma Sabry Abdallah</footer>
+</body>
+</html>
+
+
+
+

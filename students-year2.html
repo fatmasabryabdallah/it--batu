@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قوائم الفرقة الثانية</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  font-family:'Cairo',sans-serif;
+  background-color:#e6f7f5;
+  color: #1e3a8a;
+  text-align:center;
+  overflow-x:hidden;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===== Header ===== */
+header {
+  background:linear-gradient(135deg,#00bfa5,#26c6da,#4dd0e1);
+  color:#fff;
+  padding:40px 10px 45px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  position:relative;
+}
+.back-btn {
+  position:absolute;
+  left:15px; top:15px;
+  background-color:rgba(255,255,255,0.15);
+  border:none; color:white;
+  font-size:20px; border-radius:50%;
+  width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.back-btn:hover {background-color:rgba(255,255,255,0.3); transform:scale(1.1);}
+
+/* ===== Layout ===== */
+.main-container {
+  width:95%;
+  max-width:900px;
+  margin:30px auto 100px auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+/* ===== PDF Container ===== */
+.pdf-container {
+  width:100%;
+  height:80vh;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  background-color:#fff;
+}
+.pdf-container iframe {
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+/* ===== Search Section ===== */
+.search-section {
+  width:100%;
+  max-width:500px;
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  text-align:center;
+}
+.search-section h2 {
+  margin-bottom:10px;
+  color: #1e3a8a;
+}
+input {
+  width:90%;
+  padding:10px;
+  border:1px solid #b2dfdb;
+  border-radius:8px;
+  font-size:1rem;
+  margin-bottom:15px;
+  text-align:center;
+}
+button {
+  background-color:#26a69a;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+button:hover {background-color:#009688;}
+
+.results {
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+}
+
+/* ===== Student Card ===== */
+.student-card {
+  background:linear-gradient(135deg,#a1c4fd,#c2e9fb);
+  width:90%;
+  max-width:400px;
+  border-radius:15px;
+  padding:15px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  transition:transform 0.3s ease;
+}
+.student-card:hover {transform:translateY(-5px);}
+.student-card h3 {margin-bottom:8px; color: #1e3a8a;}
+.student-card p {color: #1e3a8a; margin:4px 0;}
+
+/* ===== Footer ===== */
+footer {
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#e6f7f5;
+  color: #1e3a8a;
+  text-align:center;
+  padding:10px 0;
+  font-size:14px;
+  border-top:1px solid #c8e6e4;
+  box-shadow:0 -2px 8px rgba(0,0,0,0.05);
+  z-index:10;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .pdf-container {height:65vh;}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <button class="back-btn" onclick="goBack()" title="العودة إلى لوحة القسم"><i class="fas fa-arrow-right"></i></button>
+  <h1>قسم تكنولوجيا المعلومات</h1>
+  <h3>قوائم الفرقة الثانية</h3>
+</header>
+
+<div class="main-container">
+  <!-- PDF Viewer -->
+  <div class="pdf-container">
+    <iframe src="pdfs/قوائم الفرقة الثانية.pdf" title="قوائم الفرقة الثانية"></iframe>
+  </div>
+
+  <!-- Search Section -->
+  <!--<div class="search-section">
+    <h2>🔍 ابحث عن بياناتك</h2>
+    <input type="text" id="searchInput" placeholder="اكتب اسمك أو رقم الجلوس...">
+    <button onclick="searchStudent()">بحث</button>
+    <div id="results" class="results"></div>
+  </div>
+</div>-->
+
+<footer>© 2025 جامعة برج العرب التكنولوجية - قسم تكنولوجيا المعلومات</footer>
+<footer>©تم انشاء هذا الموقع بواسطه Fatma Sabry Abdallah</footer>
+<script>
+// بيانات الطلاب (عينة افتراضية)
+const students = [
+  { seatNumber: "2320001", name: "احمد ابراهيم محمود", group: "A", section: "1" },
+  { seatNumber: "2320002", name: "رحمه سامح السيد", group: "A", section: "1" },
+  { seatNumber: "2320003", name: "ياسر طارق عبد الله", group: "B", section: "2" },
+  { seatNumber: "2320004", name: "دينا عادل محمد", group: "C", section: "2" },
+  { seatNumber: "2320005", name: "محمد خالد حسن", group: "C", section: "3" },
+  { seatNumber: "2320006", name: "ندى احمد عبد الغني", group: "B", section: "1" }
+];
+
+// البحث عن طالب
+/*function searchStudent() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
+
+  if (query === "") {
+    resultsDiv.innerHTML = "<p>من فضلك أدخل الاسم أو رقم الجلوس.</p>";
+    return;
+  }
+
+  const results = students.filter(s =>
+    s.name.toLowerCase().includes(query) || s.seatNumber.includes(query)
+  );
+
+  if (results.length === 0) {
+    resultsDiv.innerHTML = "<p>لم يتم العثور على نتائج.</p>";
+    return;
+  }
+
+  results.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "student-card";
+    card.innerHTML = `
+      <h3>${s.name}</h3>
+      <p><strong>رقم الجلوس:</strong> ${s.seatNumber}</p>
+      <p><strong>المجموعة:</strong> ${s.group}</p>
+      <p><strong>الفصل:</strong> ${s.section}</p>
+    `;
+    resultsDiv.appendChild(card);
+  });
+}*/
+
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+</script>
+</body>
+</html>
+
